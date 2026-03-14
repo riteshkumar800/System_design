@@ -38,25 +38,25 @@ class Car{
 
 
 
-    void accelerate(){
-        if(!isEngineon){
-            cout<<brand<<" "<<model<<": Engine is off! cannot shift gear"<<endl;
-           return;
-        }
+    // void accelerate(){
+    //     if(!isEngineon){
+    //         cout<<brand<<" "<<model<<": Engine is off! cannot shift gear"<<endl;
+    //        return;
+    //     }
 
-        currentSpeed+=20;
-        cout<<brand<<" "<<model<<": Accelerating to "<<currentSpeed<<"Km/h"<<endl;
-
-
-    }
+    //     currentSpeed+=20;
+    //     cout<<brand<<" "<<model<<": Accelerating to "<<currentSpeed<<"Km/h"<<endl;
 
 
-    void brake(){
-        currentSpeed-=20;
-        if(currentSpeed<0) currentSpeed=0;
-        cout<<brand<<" "<<model<<": Braking! speed is now:  "<<currentSpeed<<"Km/h"<<endl;
+    // }
 
-    }
+
+    // void brake(){
+    //     currentSpeed-=20;
+    //     if(currentSpeed<0) currentSpeed=0;
+    //     cout<<brand<<" "<<model<<": Braking! speed is now:  "<<currentSpeed<<"Km/h"<<endl;
+
+    // }
 
 
     void stopEngine(){
@@ -65,6 +65,12 @@ class Car{
         cout<<brand<<" "<<model<<": Engine off!  "<<endl;
 
     }
+
+
+   virtual void accelerate()=0;
+   virtual void brake()=0;
+   virtual ~Car(){};
+
 };
 
 class ManualCar: public Car{
@@ -79,6 +85,25 @@ class ManualCar: public Car{
         currentGear=gear;
         cout<<brand<<" "<<model<<": Shifted to gear "<<currentGear<<endl;
     }
+
+    void accelerate(){
+        if(!isEngineon){
+            cout<<brand<<" "<<model<<": Engine is off! cannot shift gear"<<endl;
+           return;
+        }
+
+        currentSpeed+=20;
+        cout<<brand<<" "<<model<<": Accelerating to "<<currentSpeed<<"Km/h"<<endl;
+
+
+    }
+    void brake(){
+        currentSpeed-=20;
+        if(currentSpeed<0) currentSpeed=0;
+        cout<<brand<<" "<<model<<": Braking! speed is now:  "<<currentSpeed<<"Km/h"<<endl;
+
+    }
+
 
 
 };
@@ -97,6 +122,28 @@ class ElectricCar:public Car{
         batteryLevel=100;
         cout<<brand<<" "<<model<<":  batteryfully Charged"<<endl;
     }
+    void accelerate(){
+        if(!isEngineon){
+            cout<<brand<<" "<<model<<": Engine is off! cannot shift gear"<<endl;
+           return;
+        }
+        if(batteryLevel<=0){
+            cout<<brand<<" "<<model<<": battery daed! cannot accelerate "<<"Km/h"<<endl;
+            return;
+        }
+        batteryLevel-=10;
+        currentSpeed+=20;
+        cout<<brand<<" "<<model<<": Accelerating to "<<currentSpeed<<"Km/h"<<endl;
+
+
+    }
+    void brake(){
+        currentSpeed-=20;
+        if(currentSpeed<0) currentSpeed=0;
+        cout<<brand<<" "<<model<<": Braking! speed is now:  "<<currentSpeed<<"Km/h. Battery at"<<batteryLevel<<endl;
+
+    }
+
 
 };
 
