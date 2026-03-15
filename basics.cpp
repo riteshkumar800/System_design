@@ -5,7 +5,20 @@ using namespace std;
 
 
 
+// class Student{
 
+//     public:
+//     string name;
+//     int age;
+
+// };
+
+// int main(){
+//     Student s1;
+//     s1.name="ritesh";
+//     s1.age=22;
+//     cout<<s1.name<<" "<<s1.age<<" "<<endl;
+// }
 
 class Car{
     public:
