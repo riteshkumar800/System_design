@@ -56,34 +56,67 @@ class ShoppingCartPrinter{
     }
 };
 
-class ShoppingCartStorage{
+// class ShoppingCartStorage{
+//     private:
+//     ShoppingCart*cart;
+
+//     public:
+//     ShoppingCartStorage(ShoppingCart*cart){
+//         this->cart=cart;
+
+//     }
+
+//     void SaveToSQLDatabase(){
+//         cout<<"saving to SQL DB..."<<endl;
+
+//     }
+//     void SaveToMongoDB(){
+//         cout<<"saving  to  Mongo DB..."<<endl;
+
+//     }
+//     void SaveToFile(){
+//         cout<<"saving to File DB..."<<endl;
+
+//     }
+
+
+
+
+// };
+
+class Persistence{
     private:
     ShoppingCart*cart;
-
+    
     public:
-    ShoppingCartStorage(ShoppingCart*cart){
-        this->cart=cart;
+    virtual void save(ShoppingCart*cart)=0;
+};
 
+class SQLPersistence:public Persistence{
+    public:
+    void save(ShoppingCart*cart) override{
+        cout<<"Saving to SQL DB....."<<endl;
     }
 
-    void SaveToSQLDatabase(){
-        cout<<"saving to SQL DB..."<<endl;
-
-    }
-    void SaveToMongoDB(){
-        cout<<"saving  to  Mongo DB..."<<endl;
-
-    }
-    void SaveToFile(){
-        cout<<"saving to File DB..."<<endl;
-
+    
+};
+class MongoPersistence:public Persistence{
+    public:
+    void save(ShoppingCart*cart) override{
+        cout<<"Saving to Mongo DB....."<<endl;
     }
 
+    
+};
 
+class FilePersistence:public Persistence{
+    public:
+    void save(ShoppingCart*cart) override{
+        cout<<"Saving to File DB....."<<endl;
+    }
 
 
 };
-
 
 int main(){
     ShoppingCart*cart =new ShoppingCart();
@@ -93,8 +126,17 @@ int main(){
     ShoppingCartPrinter*printer=new ShoppingCartPrinter(cart);
     printer->printInvoice();
 
-    ShoppingCartStorage* db=new ShoppingCartStorage(cart);
-    db->SaveToSQLDatabase();
+    // ShoppingCartStorage* db=new ShoppingCartStorage(cart);
+    // db->SaveToSQLDatabase();
+    Persistence* db=new SQLPersistence();
+    Persistence* mongo=new MongoPersistence();
+    Persistence* file=new FilePersistence();
+
+    db->save(cart);
+    mongo->save(cart);
+    file->save(cart);
+
+
 
 
     return 0;
