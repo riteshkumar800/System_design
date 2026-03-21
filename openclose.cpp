@@ -56,4 +56,54 @@ class ShoppingCartPrinter{
     }
 };
 
+class ShoppingCartStorage{
+    private:
+    ShoppingCart*cart;
+
+    public:
+    ShoppingCartStorage(ShoppingCart*cart){
+        this->cart=cart;
+
+    }
+
+    void SaveToSQLDatabase(){
+        cout<<"saving to SQL DB..."<<endl;
+
+    }
+    void SaveToMongoDB(){
+        cout<<"saving  to  Mongo DB..."<<endl;
+
+    }
+    void SaveToFile(){
+        cout<<"saving to File DB..."<<endl;
+
+    }
+
+
+
+
+};
+
+
+int main(){
+    ShoppingCart*cart =new ShoppingCart();
+    cart->addProduct(new Product("Laptop", 1500));
+    cart->addProduct(new Product("Mouse", 50));
+
+    ShoppingCartPrinter*printer=new ShoppingCartPrinter(cart);
+    printer->printInvoice();
+
+    ShoppingCartStorage* db=new ShoppingCartStorage(cart);
+    db->SaveToSQLDatabase();
+
+
+    return 0;
+
+
+
+}
+
+
+
+
 
