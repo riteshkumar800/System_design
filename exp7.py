@@ -1,106 +1,41 @@
-import ply.lex as lex
-import ply.yacc as yacc
+s = "i+i*i$"
+i = 0
 
-# -------------------------
-# Token List
-# -------------------------
-tokens = (
-    'NUMBER',
-    'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-    'LPAREN', 'RPAREN'
-)
+def E():
+    T(); E_()
 
-# -------------------------
-# Regular Expressions
-# -------------------------
-t_PLUS    = r'\+'
-t_MINUS   = r'-'
-t_TIMES   = r'\*'
-t_DIVIDE  = r'/'
-t_LPAREN  = r'\('
-t_RPAREN  = r'\)'
-t_ignore  = ' \t'
+def E_():
+    global i
+    if s[i] == '+':
+        i += 1
+        T(); E_()
 
-# -------------------------
-# Number Token
-# -------------------------
-def t_NUMBER(t):
-    r'\d+(\.\d+)?'
-    t.value = float(t.value)
-    return t
+def T():
+    F(); T_()
 
-# -------------------------
-# Newline Handling
-# -------------------------
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+def T_():
+    global i
+    if s[i] == '*':
+        i += 1
+        F(); T_()
 
-# -------------------------
-# Error Handling
-# -------------------------
-def t_error(t):
-    print("Illegal character:", t.value[0])
-    t.lexer.skip(1)
+def F():
+    global i
+    if s[i] == 'i':
+        i += 1
+    elif s[i] == '(':
+        i += 1
+        E()
+        if s[i] == ')':
+            i += 1
+        else:
+            error()
+    else:
+        error()
 
-# Build Lexer
-lexer = lex.lex()
+def error():
+    print("Rejected")
+    exit()
 
-# -------------------------
-# Grammar Rules
-# -------------------------
-def p_expression_plus(p):
-    'expression : expression PLUS term'
-    p[0] = p[1] + p[3]
-
-def p_expression_minus(p):
-    'expression : expression MINUS term'
-    p[0] = p[1] - p[3]
-
-def p_expression_term(p):
-    'expression : term'
-    p[0] = p[1]
-
-def p_term_times(p):
-    'term : term TIMES factor'
-    p[0] = p[1] * p[3]
-
-def p_term_divide(p):
-    'term : term DIVIDE factor'
-    p[0] = p[1] / p[3]
-
-def p_term_factor(p):
-    'term : factor'
-    p[0] = p[1]
-
-def p_factor_number(p):
-    'factor : NUMBER'
-    p[0] = p[1]
-
-def p_factor_expr(p):
-    'factor : LPAREN expression RPAREN'
-    p[0] = p[2]
-
-# -------------------------
-# Syntax Error Rule
-# -------------------------
-def p_error(p):
-    print("Syntax Error at token:", p)
-
-# Build Parser
-parser = yacc.yacc()
-
-# -------------------------
-# Driver Code
-# -------------------------
-while True:
-    try:
-        s = input("Enter expression (or exit): ")
-        if s.lower() == "exit":
-            break
-
-        result = parser.parse(s)
-        print("Result =", result)
-
-    except Exception as e:
-        print("Error:", e)
+E()
+print("Accepted" if s[i] == '$' else "Rejected")
