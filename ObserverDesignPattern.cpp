@@ -172,12 +172,19 @@ class InstagramUser{
         followers.push_back(u);
     }
 
+    void unfollow(User* u){
+        auto it=find(followers.begin(),followers.end(),u);
+        if(it!=followers.end()){
+            followers.erase(it);
+        }
+    }
+
     void post(string content){
         for(User* u:followers){
             u->update(content);
         }
     }
-    
+
 
 
 };
@@ -192,6 +199,9 @@ int main(){
     creator.follow(&u2);
 
     creator.post("photo");
+    creator.unfollow(&u2);
+    creator.post("New reel uploaded");
+
 
 
 }
