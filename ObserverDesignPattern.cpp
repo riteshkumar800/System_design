@@ -150,58 +150,137 @@ using namespace std;
 
 
 
+// class User{
+//     public:
+
+//    string name;
+//    User(string n){
+//     name=n;
+//    }
+
+//    void update(string post){
+//     cout<<name<<" saw post "<<post<<endl;
+//    }
+
+
+// };
+// class InstagramUser{
+//     private:
+//     vector<User*>followers;
+//     public:
+//     void follow(User* u){
+//         followers.push_back(u);
+//     }
+
+//     void unfollow(User* u){
+//         auto it=find(followers.begin(),followers.end(),u);
+//         if(it!=followers.end()){
+//             followers.erase(it);
+//         }
+//     }
+
+//     void post(string content){
+//         for(User* u:followers){
+//             u->update(content);
+//         }
+//     }
+
+
+
+// };
+
+// int main(){
+//     InstagramUser creator;
+
+//     User u1("ritesh");
+//     User u2("Rahul");
+
+//     creator.follow(&u1);
+//     creator.follow(&u2);
+
+//     creator.post("photo");
+//     creator.unfollow(&u2);
+//     creator.post("New reel uploaded");
+
+
+
+// }
+
+
+class InstagramUser;
+
 class User{
     public:
+    string name;
 
-   string name;
-   User(string n){
-    name=n;
-   }
+    User(string n){
+        name=n;
 
-   void update(string post){
-    cout<<name<<" saw post "<<post<<endl;
-   }
+    }
+
+    void update(const string& message){
+        cout<<name<<" saw post: "<<message<<endl;
+    }
 
 
 };
+
 class InstagramUser{
     private:
     vector<User*>followers;
+    string latestpost;
+    string name;
     public:
-    void follow(User* u){
-        followers.push_back(u);
+
+    InstagramUser(string n){
+        name=n;
+
     }
 
-    void unfollow(User* u){
+    void follow(User*u){
+        if(find(followers.begin(),followers.end(),u)==followers.end()){
+            followers.push_back(u);
+        }
+    }
+
+    void unfollow(User*u){
         auto it=find(followers.begin(),followers.end(),u);
         if(it!=followers.end()){
             followers.erase(it);
         }
     }
 
-    void post(string content){
-        for(User* u:followers){
-            u->update(content);
-        }
+    void createpost(const string& post){
+        latestpost=post;
+        notify();
+
     }
 
-
-
+    void notify(){
+        for(User* u:followers){
+            u->update(name + "posted: " + latestpost);
+        }
+    }
 };
 
 int main(){
-    InstagramUser creator;
+    InstagramUser creator("Riytesh");
 
-    User u1("ritesh");
-    User u2("Rahul");
+    User u1("aman");
+    User u2("ujala");
+
 
     creator.follow(&u1);
     creator.follow(&u2);
 
-    creator.post("photo");
+
+    creator.createpost("my first reel ");
+    cout<<endl;
+
     creator.unfollow(&u2);
-    creator.post("New reel uploaded");
 
+    creator.createpost("second reel");
 
+    return 0;
 
 }
