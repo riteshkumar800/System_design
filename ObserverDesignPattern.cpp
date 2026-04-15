@@ -73,77 +73,125 @@ using namespace std;
 
 // }
 
-class Channel;
+// class Channel;
 
 
-class Subscriber {
-    public:
-    string name;
-    Channel* channel;
+// class Subscriber {
+//     public:
+//     string name;
+//     Channel* channel;
 
-    Subscriber(string n, Channel* ch){
-        name=n;
-        channel=ch;
+//     Subscriber(string n, Channel* ch){
+//         name=n;
+//         channel=ch;
 
-    }
+//     }
 
-    void update();
-
-
+//     void update();
 
 
 
-};
+
+
+// };
+
+// // void Subscriber::update(){
+
+// // }
+
+
+// class Channel{
+//     private:
+//     vector<Subscriber*> subs;
+//     string latestVideo;
+    
+
+//     public:
+//     void Subscribe(Subscriber* s){
+//         subs.push_back(s);
+
+//     }
+//     void Uploadvideo(string title){
+//         latestVideo=title;
+//         notify();
+
+//     }
+
+//     void notify(){
+//         for(Subscriber* s:subs){
+//             s->update();
+//         }
+//     }
+
+//     string getvideo(){
+//         return latestVideo;
+//     }
+
+
+// };
 
 // void Subscriber::update(){
+//     cout<<name<<"got update: "<<channel->getvideo()<<endl;
 
 // }
 
+// int main(){
+//     Channel ch;
 
-class Channel{
-    private:
-    vector<Subscriber*> subs;
-    string latestVideo;
-    
 
+//     Subscriber s1("Rahul", &ch);
+//     Subscriber s2("madan", &ch);
+
+//     ch.Subscribe(&s1);
+//     ch.Subscribe(&s2);
+
+//     ch.Uploadvideo("Observer pattern video");
+// }
+
+
+
+class User{
     public:
-    void Subscribe(Subscriber* s){
-        subs.push_back(s);
 
+   string name;
+   User(string n){
+    name=n;
+   }
+
+   void update(string post){
+    cout<<name<<" saw post "<<post<<endl;
+   }
+
+
+};
+class InstagramUser{
+    private:
+    vector<User*>followers;
+    public:
+    void follow(User* u){
+        followers.push_back(u);
     }
-    void Uploadvideo(string title){
-        latestVideo=title;
-        notify();
 
-    }
-
-    void notify(){
-        for(Subscriber* s:subs){
-            s->update();
+    void post(string content){
+        for(User* u:followers){
+            u->update(content);
         }
     }
-
-    string getvideo(){
-        return latestVideo;
-    }
+    
 
 
 };
 
-void Subscriber::update(){
-    cout<<name<<"got update: "<<channel->getvideo()<<endl;
-
-}
-
 int main(){
-    Channel ch;
+    InstagramUser creator;
+
+    User u1("ritesh");
+    User u2("Rahul");
+
+    creator.follow(&u1);
+    creator.follow(&u2);
+
+    creator.post("photo");
 
 
-    Subscriber s1("Rahul", &ch);
-    Subscriber s2("madan", &ch);
-
-    ch.Subscribe(&s1);
-    ch.Subscribe(&s2);
-
-    ch.Uploadvideo("Observer pattern video");
 }
