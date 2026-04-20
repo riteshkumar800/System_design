@@ -1,32 +1,59 @@
+
+
 #include <stdio.h>
 
 int main() {
-    int n;
+    int i, j, s, n=4 ;  
+    
 
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
 
-    int arr[n];   
+    for(i = 1; i <= n; i++) {
 
-    printf("Enter %d numbers:\n", n);
-    for(int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
+       
+        if(i == 1)
+            s = 1;
+        else if(i == 2)
+            s = 3;
+        else
+            s = i + 1;
 
-    int even_sum = 0;
-    int odd_sum = 0;
-
-   
-    for(int i = 0; i < n; i++) {
-        if(arr[i] % 2 == 0) {
-            even_sum = even_sum + arr[i];
-        } else {
-            odd_sum = odd_sum + arr[i];
+        
+        for(j = 1; j <= n - i; j++) {
+            printf(" ");
         }
-    }
 
-    printf("\nSum of even numbers = %d\n", even_sum);
-    printf("Sum of odd numbers = %d\n", odd_sum);
+       
+        for(j = 1; j <= s; j++) {
+            printf("* ");
+        }
+
+        printf("\n");
+    }
 
     return 0;
 }
+// #include <stdio.h>
+
+// int main() {
+//     int i, j, k, n;
+
+//     printf("Enter n: ");
+//     scanf("%d", &n);
+
+//     for(i = 1; i <= n; i++) {
+
+       
+//         for(j = 1; j <= n - i; j++) {
+//             printf(" ");
+//         }
+
+       
+//         for(k = 1; k <= 2*i - 1; k++) {
+//             printf("* ");
+//         }
+
+//         printf("\n");
+//     }
+
+//     return 0;
+// }
