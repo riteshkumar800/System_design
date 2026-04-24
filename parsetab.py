@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'LPAREN NUMBER PLUS RPAREN TIMESexpr : expr PLUS term\n| termterm : term TIMES factor\n| factorfactor : NUMBER\n| LPAREN expr RPAREN'
+_lr_signature = 'MUL NUM PLUSe : e PLUS te : tt : t MUL NUMt : NUM'
     
-_lr_action_items = {'NUMBER':([0,5,6,7,],[4,4,4,4,]),'LPAREN':([0,5,6,7,],[5,5,5,5,]),'$end':([1,2,3,4,9,10,11,],[0,-2,-4,-5,-1,-3,-6,]),'PLUS':([1,2,3,4,8,9,10,11,],[6,-2,-4,-5,6,-1,-3,-6,]),'RPAREN':([2,3,4,8,9,10,11,],[-2,-4,-5,11,-1,-3,-6,]),'TIMES':([2,3,4,9,10,11,],[7,-4,-5,7,-3,-6,]),}
+_lr_action_items = {'NUM':([0,4,5,],[3,3,7,]),'$end':([1,2,3,6,7,],[0,-2,-4,-1,-3,]),'PLUS':([1,2,3,6,7,],[4,-2,-4,-1,-3,]),'MUL':([2,3,6,7,],[5,-4,5,-3,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expr':([0,5,],[1,8,]),'term':([0,5,6,],[2,2,9,]),'factor':([0,5,6,7,],[3,3,3,10,]),}
+_lr_goto_items = {'e':([0,],[1,]),'t':([0,4,],[2,6,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,11 +26,9 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> expr","S'",1,None,None,None),
-  ('expr -> expr PLUS term','expr',3,'p_expr','exp7.py',24),
-  ('expr -> term','expr',1,'p_expr','exp7.py',25),
-  ('term -> term TIMES factor','term',3,'p_term','exp7.py',29),
-  ('term -> factor','term',1,'p_term','exp7.py',30),
-  ('factor -> NUMBER','factor',1,'p_factor','exp7.py',34),
-  ('factor -> LPAREN expr RPAREN','factor',3,'p_factor','exp7.py',35),
+  ("S' -> e","S'",1,None,None,None),
+  ('e -> e PLUS t','e',3,'p_e_plus','one.py',605),
+  ('e -> t','e',1,'p_e_t','one.py',609),
+  ('t -> t MUL NUM','t',3,'p_t_mul','one.py',613),
+  ('t -> NUM','t',1,'p_t_num','one.py',617),
 ]

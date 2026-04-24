@@ -2,165 +2,98 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Grammar
 
-Rule 0     S' -> expr
-Rule 1     expr -> expr PLUS term
-Rule 2     expr -> term
-Rule 3     term -> term TIMES factor
-Rule 4     term -> factor
-Rule 5     factor -> NUMBER
-Rule 6     factor -> LPAREN expr RPAREN
+Rule 0     S' -> e
+Rule 1     e -> e PLUS t
+Rule 2     e -> t
+Rule 3     t -> t MUL NUM
+Rule 4     t -> NUM
 
 Terminals, with rules where they appear
 
-LPAREN               : 6
-NUMBER               : 5
+MUL                  : 3
+NUM                  : 3 4
 PLUS                 : 1
-RPAREN               : 6
-TIMES                : 3
 error                : 
 
 Nonterminals, with rules where they appear
 
-expr                 : 1 6 0
-factor               : 3 4
-term                 : 1 2 3
+e                    : 1 0
+t                    : 1 2 3
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . expr
-    (1) expr -> . expr PLUS term
-    (2) expr -> . term
-    (3) term -> . term TIMES factor
-    (4) term -> . factor
-    (5) factor -> . NUMBER
-    (6) factor -> . LPAREN expr RPAREN
+    (0) S' -> . e
+    (1) e -> . e PLUS t
+    (2) e -> . t
+    (3) t -> . t MUL NUM
+    (4) t -> . NUM
 
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    NUM             shift and go to state 3
 
-    expr                           shift and go to state 1
-    term                           shift and go to state 2
-    factor                         shift and go to state 3
+    e                              shift and go to state 1
+    t                              shift and go to state 2
 
 state 1
 
-    (0) S' -> expr .
-    (1) expr -> expr . PLUS term
+    (0) S' -> e .
+    (1) e -> e . PLUS t
 
-    PLUS            shift and go to state 6
+    PLUS            shift and go to state 4
 
 
 state 2
 
-    (2) expr -> term .
-    (3) term -> term . TIMES factor
+    (2) e -> t .
+    (3) t -> t . MUL NUM
 
-    PLUS            reduce using rule 2 (expr -> term .)
-    $end            reduce using rule 2 (expr -> term .)
-    RPAREN          reduce using rule 2 (expr -> term .)
-    TIMES           shift and go to state 7
+    PLUS            reduce using rule 2 (e -> t .)
+    $end            reduce using rule 2 (e -> t .)
+    MUL             shift and go to state 5
 
 
 state 3
 
-    (4) term -> factor .
+    (4) t -> NUM .
 
-    TIMES           reduce using rule 4 (term -> factor .)
-    PLUS            reduce using rule 4 (term -> factor .)
-    $end            reduce using rule 4 (term -> factor .)
-    RPAREN          reduce using rule 4 (term -> factor .)
+    MUL             reduce using rule 4 (t -> NUM .)
+    PLUS            reduce using rule 4 (t -> NUM .)
+    $end            reduce using rule 4 (t -> NUM .)
 
 
 state 4
 
-    (5) factor -> NUMBER .
+    (1) e -> e PLUS . t
+    (3) t -> . t MUL NUM
+    (4) t -> . NUM
 
-    TIMES           reduce using rule 5 (factor -> NUMBER .)
-    PLUS            reduce using rule 5 (factor -> NUMBER .)
-    $end            reduce using rule 5 (factor -> NUMBER .)
-    RPAREN          reduce using rule 5 (factor -> NUMBER .)
+    NUM             shift and go to state 3
 
+    t                              shift and go to state 6
 
 state 5
 
-    (6) factor -> LPAREN . expr RPAREN
-    (1) expr -> . expr PLUS term
-    (2) expr -> . term
-    (3) term -> . term TIMES factor
-    (4) term -> . factor
-    (5) factor -> . NUMBER
-    (6) factor -> . LPAREN expr RPAREN
+    (3) t -> t MUL . NUM
 
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    NUM             shift and go to state 7
 
-    expr                           shift and go to state 8
-    term                           shift and go to state 2
-    factor                         shift and go to state 3
 
 state 6
 
-    (1) expr -> expr PLUS . term
-    (3) term -> . term TIMES factor
-    (4) term -> . factor
-    (5) factor -> . NUMBER
-    (6) factor -> . LPAREN expr RPAREN
+    (1) e -> e PLUS t .
+    (3) t -> t . MUL NUM
 
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
+    PLUS            reduce using rule 1 (e -> e PLUS t .)
+    $end            reduce using rule 1 (e -> e PLUS t .)
+    MUL             shift and go to state 5
 
-    term                           shift and go to state 9
-    factor                         shift and go to state 3
 
 state 7
 
-    (3) term -> term TIMES . factor
-    (5) factor -> . NUMBER
-    (6) factor -> . LPAREN expr RPAREN
+    (3) t -> t MUL NUM .
 
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
-
-    factor                         shift and go to state 10
-
-state 8
-
-    (6) factor -> LPAREN expr . RPAREN
-    (1) expr -> expr . PLUS term
-
-    RPAREN          shift and go to state 11
-    PLUS            shift and go to state 6
-
-
-state 9
-
-    (1) expr -> expr PLUS term .
-    (3) term -> term . TIMES factor
-
-    PLUS            reduce using rule 1 (expr -> expr PLUS term .)
-    $end            reduce using rule 1 (expr -> expr PLUS term .)
-    RPAREN          reduce using rule 1 (expr -> expr PLUS term .)
-    TIMES           shift and go to state 7
-
-
-state 10
-
-    (3) term -> term TIMES factor .
-
-    TIMES           reduce using rule 3 (term -> term TIMES factor .)
-    PLUS            reduce using rule 3 (term -> term TIMES factor .)
-    $end            reduce using rule 3 (term -> term TIMES factor .)
-    RPAREN          reduce using rule 3 (term -> term TIMES factor .)
-
-
-state 11
-
-    (6) factor -> LPAREN expr RPAREN .
-
-    TIMES           reduce using rule 6 (factor -> LPAREN expr RPAREN .)
-    PLUS            reduce using rule 6 (factor -> LPAREN expr RPAREN .)
-    $end            reduce using rule 6 (factor -> LPAREN expr RPAREN .)
-    RPAREN          reduce using rule 6 (factor -> LPAREN expr RPAREN .)
+    MUL             reduce using rule 3 (t -> t MUL NUM .)
+    PLUS            reduce using rule 3 (t -> t MUL NUM .)
+    $end            reduce using rule 3 (t -> t MUL NUM .)
 
