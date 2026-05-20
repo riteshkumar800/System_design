@@ -132,9 +132,9 @@ int main(){
     Persistence* mongo=new MongoPersistence();
     Persistence* file=new FilePersistence();
 
-    // db->save(cart);
-    // mongo->save(cart);
-    // file->save(cart);
+    db->save(cart);
+    mongo->save(cart);
+    file->save(cart);
 
 
 
