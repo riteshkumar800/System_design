@@ -38,23 +38,23 @@ class ShoppingCart{
 
 };
 
-// class ShoppingCartPrinter{
-//     private:
-//     ShoppingCart*cart;
+class ShoppingCartPrinter{
+    private:
+    ShoppingCart*cart;
 
-//     public:
-//     ShoppingCartPrinter(ShoppingCart*cart){
-//         this->cart=cart;
-//     }
+    public:
+    ShoppingCartPrinter(ShoppingCart*cart){
+        this->cart=cart;
+    }
 
-//     void printInvoice(){
-//         cout<<"Shoppinig Cart Invoice"<<endl;
-//         for (auto p:cart->getProducts()){
-//             cout<<p->name<<" -$"<<p->price<<endl;
-//         }
-//         cout<<"Total: $"<<cart->calculateTotal()<<endl;
-//     }
-// };
+    void printInvoice(){
+        cout<<"Shoppinig Cart Invoice"<<endl;
+        for (auto p:cart->getProducts()){
+            cout<<p->name<<" -$"<<p->price<<endl;
+        }
+        cout<<"Total: $"<<cart->calculateTotal()<<endl;
+    }
+};
 
 // class ShoppingCartStorage{
 //     private:
