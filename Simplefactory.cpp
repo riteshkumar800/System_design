@@ -319,19 +319,19 @@ class SinghBurger: public MealFactory{
     }
 
 
-    // GarlicBread* createGarlicBread(string&type)override{
-    //     if(type=="basic"){
-    //         return new BasicGarlicBread();
-    //     }
-    //     else if(type=="cheese"){
-    //         return new CheeseGarlicBread();
-    //     }
+    GarlicBread* createGarlicBread(string&type)override{
+        if(type=="basic"){
+            return new BasicGarlicBread();
+        }
+        else if(type=="cheese"){
+            return new CheeseGarlicBread();
+        }
 
-    //     else{
-    //         cout<<"Invalid bread type..."<<endl;
-    //         return nullptr;
-    //     }
-    // }
+        else{
+            cout<<"Invalid bread type..."<<endl;
+            return nullptr;
+        }
+    }
 };
 
 class KingBurger:public MealFactory{
