@@ -56,33 +56,33 @@ class ShoppingCartPrinter{
     }
 };
 
-class ShoppingCartStorage{
-    private:
-    ShoppingCart*cart;
+// class ShoppingCartStorage{
+//     private:
+//     ShoppingCart*cart;
 
-    public:
-    ShoppingCartStorage(ShoppingCart*cart){
-        this->cart=cart;
+//     public:
+//     ShoppingCartStorage(ShoppingCart*cart){
+//         this->cart=cart;
 
-    }
+//     }
 
-    void SaveToSQLDatabase(){
-        cout<<"saving to SQL DB..."<<endl;
+//     void SaveToSQLDatabase(){
+//         cout<<"saving to SQL DB..."<<endl;
 
-    }
-    void SaveToMongoDB(){
-        cout<<"saving  to  Mongo DB..."<<endl;
+//     }
+//     void SaveToMongoDB(){
+//         cout<<"saving  to  Mongo DB..."<<endl;
 
-    }
-    void SaveToFile(){
-        cout<<"saving to File DB..."<<endl;
+//     }
+//     void SaveToFile(){
+//         cout<<"saving to File DB..."<<endl;
 
-    }
-
-
+//     }
 
 
-};
+
+
+// };
 
 class Persistence{
     private:

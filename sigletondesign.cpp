@@ -2,32 +2,32 @@
 using namespace std;
 
 
-// class Singleton{
-//     private:
-//     static Singleton* instance;
-//     static mutex mtx;
+class Singleton{
+    private:
+    static Singleton* instance;
+    static mutex mtx;
 
-//     Singleton(){
-//         cout<<"Singleton constructor is called...."<<endl;
-//     }
+    Singleton(){
+        cout<<"Singleton constructor is called...."<<endl;
+    }
 
-//     public:
-//     static Singleton* getInstance(){
-//         if(instance==nullptr){
-//             lock_guard<mutex>lock(mtx);
-//             if(instance==nullptr){
-//                 instance=new Singleton();
-//             }
-//         }
+    public:
+    static Singleton* getInstance(){
+        if(instance==nullptr){
+            lock_guard<mutex>lock(mtx);
+            if(instance==nullptr){
+                instance=new Singleton();
+            }
+        }
 
-//         return instance;
-//     }
+        return instance;
+    }
 
 
 
-// };
-// Singleton* Singleton::instance = nullptr;
-// mutex Singleton::mtx;
+};
+Singleton* Singleton::instance = nullptr;
+mutex Singleton::mtx;
 
 
 class Singleton{
