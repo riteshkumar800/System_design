@@ -150,4 +150,58 @@ int main(){
 }
 
 
+#include <iostream>
+using namespace std;
+
+// Strategy Interface
+class PaymentStrategy {
+public:
+    virtual void pay(int amount) = 0;
+    virtual ~PaymentStrategy() {}
+};
+
+// Concrete Strategy 1
+class CreditCardPayment : public PaymentStrategy {
+public:
+    void pay(int amount) override {
+        cout << "Paid " << amount << " using Credit Card\n";
+    }
+};
+
+// Concrete Strategy 2
+class UpiPayment : public PaymentStrategy {
+public:
+    void pay(int amount) override {
+        cout << "Paid " << amount << " using UPI\n";
+    }
+};
+
+// Concrete Strategy 3
+class PaypalPayment : public PaymentStrategy {
+public:
+    void pay(int amount) override {
+        cout << "Paid " << amount << " using PayPal\n";
+    }
+};
+
+// Context
+
+
+int main() {
+    CreditCardPayment creditCard;
+    UpiPayment upi;
+    PaypalPayment paypal;
+
+    PaymentContext payment(&creditCard);
+    payment.makePayment(1000);
+
+    payment.setStrategy(&upi);
+    payment.makePayment(2000);
+
+    payment.setStrategy(&paypal);
+    payment.makePayment(3000);
+
+    return 0;
+}
+
 
