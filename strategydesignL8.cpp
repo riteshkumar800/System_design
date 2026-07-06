@@ -195,7 +195,13 @@ public:
         this->strategy = strategy;
     }
 
-    
+    void setStrategy(PaymentStrategy* strategy) {
+        this->strategy = strategy;
+    }
+
+    void makePayment(int amount) {
+        strategy->pay(amount);
+    }
 };
 int main() {
     CreditCardPayment creditCard;
