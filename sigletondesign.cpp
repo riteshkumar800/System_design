@@ -46,17 +46,47 @@ class Singleton{
 
 };
 
-Singleton* Singleton::instance=new Singleton();
+// Singleton* Singleton::instance=new Singleton();
 
 
 
 
 
-int main(){
-    Singleton* s1=Singleton::getInstance();
-    Singleton* s2=Singleton::getInstance();
+// int main(){
+//     Singleton* s1=Singleton::getInstance();
+//     Singleton* s2=Singleton::getInstance();
 
-    cout<<(s1==s2)<<endl;
+//     cout<<(s1==s2)<<endl;
+
+
+class Singleton {
+private:
+    Singleton() {}
+
+public:
+    Singleton(const Singleton&) = delete;
+    Singleton& operator=(const Singleton&) = delete;
+
+    static Singleton& getInstance() {
+        static Singleton instance;
+        return instance;
+    }
+
+    void showMessage() {
+        cout << "Hello from Singleton\n";
+    }
+};
+
+int main() {
+    Singleton& s1 = Singleton::getInstance();
+    Singleton& s2 = Singleton::getInstance();
+
+    s1.showMessage();
+
+    if (&s1 == &s2)
+        cout << "Same object\n";
+
+    return 0;
 }
 
 
