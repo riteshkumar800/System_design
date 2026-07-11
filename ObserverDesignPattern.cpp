@@ -284,3 +284,64 @@ int main(){
     return 0;
 
 }
+
+
+class Observer {
+public:
+    virtual void update(string message) = 0;
+    virtual ~Observer() {}
+};
+
+
+class Subscriber : public Observer {
+    string name;
+
+public:
+    Subscriber(string name) {
+        this->name = name;
+    }
+
+    void update(string message) override {
+        cout << name << " received notification: "
+             << message << endl;
+    }
+};
+
+
+class YouTubeChannel {
+    vector<Observer*> subscribers;
+
+public:
+    void subscribe(Observer* observer) {
+        subscribers.push_back(observer);
+    }
+
+    void notifySubscribers(string message) {
+        for (auto subscriber : subscribers) {
+            subscriber->update(message);
+        }
+    }
+
+    void uploadVideo(string title) {
+        cout << "New Video Uploaded: " << title << endl;
+        notifySubscribers(title);
+    }
+};
+
+int main() {
+    YouTubeChannel channel;
+
+    Subscriber s1("Ritesh");
+    
+    Subscriber s2("Rahul");
+    Subscriber s3("Aman");
+
+    channel.subscribe(&s1);
+
+    channel.subscribe(&s2);
+    channel.subscribe(&s3);
+
+    channel.uploadVideo("Observer Design Pattern Tutorial");
+
+    return 0;
+}
