@@ -145,6 +145,58 @@ int main(){
 
 }
 
+#include <iostream>
+using namespace std;
+
+class PaymentMethod {
+public:
+    virtual void pay() = 0;
+    virtual ~PaymentMethod() {}
+};
+
+class CreditCard : public PaymentMethod {
+public:
+    void pay() override {
+        cout << "Paid using Credit Card\n";
+    }
+};
+
+class UPI : public PaymentMethod {
+public:
+    void pay() override {
+        cout << "Paid using UPI\n";
+    }
+};
+
+class PayPal : public PaymentMethod {
+public:
+    void pay() override {
+        cout << "Paid using PayPal\n";
+    }
+};
+
+class PaymentProcessor {
+public:
+    void processPayment(PaymentMethod* p) {
+        p->pay();
+    }
+};
+
+int main() {
+    PaymentProcessor processor;
+
+    UPI upi;
+    processor.processPayment(&upi);
+
+    CreditCard card;
+    processor.processPayment(&card);
+
+    PayPal paypal;
+    processor.processPayment(&paypal);
+
+    return 0;
+}
+
 
 
 
