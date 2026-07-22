@@ -368,24 +368,9 @@ class KingBurger:public MealFactory{
     }
 };
 
-int main(){
-    string burgertype="basic";
-    string garlicbreadtype="cheese";
-
-    MealFactory* mealfactory=new KingBurger();
-
-    Burger* burger=mealfactory->createBurger(burgertype);
-    GarlicBread* garlicbread=mealfactory->createGarlicBread(garlicbreadtype);
-
-    burger->prepare();
-    garlicbread->prepare();
-    return 0;
-
-}
 
 
-#include <iostream>
-using namespace std;
+
 
 // Product
 class Vehicle {
@@ -431,8 +416,18 @@ public:
     }
 };
 
-int main() {
-    string type;
+int main(){
+    string burgertype="basic";
+    string garlicbreadtype="cheese";
+
+    MealFactory* mealfactory=new KingBurger();
+
+    Burger* burger=mealfactory->createBurger(burgertype);
+    GarlicBread* garlicbread=mealfactory->createGarlicBread(garlicbreadtype);
+
+    burger->prepare();
+    garlicbread->prepare();
+     string type;
     cin >> type;
 
     Vehicle* v = VehicleFactory::createVehicle(type);
@@ -445,7 +440,9 @@ int main() {
     }
 
     return 0;
+
 }
+
 
 
 
